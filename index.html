@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To DO App</title>
+    <style>
+        body{
+            background-image: linear-gradient(to right top,
+                pink,
+                rgb(69, 69, 205),
+                rgb(129, 65, 65)
+            );
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+        .todo-app-container{
+            background-color: white;
+            width:350px;
+            height: 400px;
+            display: block;
+            margin: 50px auto;
+            border-radius: 5px;
+            box-shadow: 0 0 20px grey;
+        }
+        .app-title{
+            text-align: center;
+            padding: 10px;
+            font-size: 20px;
+            background-color: #8080ff;
+            color: white;
+        }
+        .list-container{
+             height: 300px;
+             overflow-y: scroll;
+        }
+        .list-item{
+            padding: 7px 10px;
+            margin: 15px 10px;
+            font-size: 20px;
+            border: 1px solid #8080ff;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+
+        }
+        .input-container{
+            
+            text-align: center;
+        }
+        #todo-input{
+            padding: 5px 20px;
+            width: 150px;
+            margin: 10px 20px;
+        }
+        #add-btn{
+            cursor: pointer;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #8080ff;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-app-container">
+        <h1 class="app-title">To-Do App</h1>
+
+        <div class="input-container">
+            <input type="text " placeholder="Enter A Task" id= "todo-input"/>
+            <button type="button" id="add-btn" onclick="addTask()">Add</button>
+        </div>
+        <div class="list-container" id="list-container">
+        </div>
+    </div>
+
+    <script>
+        const todoList = [];
+
+        const listcontainer= document.getElementById("list-container");
+
+        
+        function addTask(){
+            const inputBox = document.getElementById("todo-input");
+            const task = inputBox.value;
+            if(task){
+                todoList.push(task);
+                inputBox.value="";
+                loadList();
+
+            }else{
+                alert("Plese Enter a task");
+            }
+
+        }
+
+        function loadList(){
+            listcontainer.innerHTML = "";
+
+            for(let i=0; i<todoList.length; i++){
+                const task = todoList[i];
+            listcontainer.innerHTML = listcontainer.innerHTML+`<div class="list-item">${task}
+                 <span onclick ="removeTask(${i})">🚮</span></div>`;
+        }
+
+        }
+        function removeTask(index){
+            todoList.splice(index,1);
+            loadList();
+        }
+    </script>
+</body>
+</html>
